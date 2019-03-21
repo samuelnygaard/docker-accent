@@ -18,7 +18,7 @@ version: "3.2"
 
 services: 
   accent:
-    build: ./accent
+    build: .
     links:
       - postgres
     ports:
