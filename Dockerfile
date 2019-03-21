@@ -1,4 +1,4 @@
-FROM elixir:1.6.0
+FROM elixir:1.8
 MAINTAINER Sven Gehring <sgehring@kochag.ch>
 
 
