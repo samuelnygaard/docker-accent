@@ -1,0 +1,32 @@
+version: "3.2"
+
+services: 
+  accent:
+    build: .
+    links:
+      - postgres
+    ports:
+      - 4000:4000
+      - 4200:4200
+    environment:
+      MIX_ENV: prod
+      PORT: 4000
+      WEBAPP_PORT: 4200
+      CANONICAL_HOST: accent.example.com
+      DATABASE_URL: postgres://postgres:password@postgres/accent
+      API_HOST: https://accent.example.com/api
+      API_WS_HOST: ws://accent.example.com/api
+      GOOGLE_API_CLIENT_ID: xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
+  postgres:
+    image: postgres:10.4
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+
+volumes:
+  postgresdata:
+    driver: local
+
