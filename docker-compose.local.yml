@@ -1,0 +1,31 @@
+version: "3.2"
+
+services:
+  accent:
+    build: .
+    links:
+      - postgres
+    ports:
+      - 4000:4000
+      - 4200:4200
+    environment:
+      MIX_ENV: dev
+      PORT: 4000
+      WEBAPP_PORT: 4200
+      CANONICAL_HOST: http://192.168.1.XXX # replace with local IP
+      API_HOST: http://192.168.1.XXX:4000
+      API_WS_HOST: ws://192.168.1.XXX:4000
+      DATABASE_URL: postgres://postgres:password@postgres/accent_development
+
+  postgres:
+    image: postgres:10.4
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+
+volumes:
+  postgresdata:
+    driver: local
